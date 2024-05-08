@@ -3,33 +3,49 @@
     <div class="card text-white bg-secondary mb-3" style="max-width: 20rem">
       <div class="card-header text-center">Agregar producto</div>
       <div class="card-body">
-        <form>
+        <form [formGroup]="form" (ngSubmit)="addProduct()">
           <input
             type="text"
             class="form-control"
             placeholder="Ingrese nombre"
+            formControlName="name"
           />
+          <span *ngIf="form.get('name')?.hasError('required') && form.get('name')?.touched">
+            El campo nombre es <strong>requerido</strong>
+          </span>
           <input
             type="text"
             class="form-control mt-2"
             placeholder="Ingrese descripcion"
+            formControlName="description"
           />
+          <span *ngIf="form.get('description')?.hasError('required') && form.get('description')?.touched">
+            El campo descripcion es <strong>requerido</strong>
+          </span>
           <input
-            type="text"
+            type="number"
             class="form-control mt-2"
             placeholder="Ingrese precio"
+            formControlName="price"
           />
+          <span *ngIf="form.get('price')?.hasError('required') && form.get('price')?.touched">
+            El campo price es <strong>requerido</strong>
+          </span>
           <input
-            type="text"
+            type="number"
             class="form-control mt-2"
             placeholder="Ingrese stock"
+            formControlName="stock"
           />
+          <span *ngIf="form.get('stock')?.hasError('required') && form.get('stock')?.touched">
+            El campo stock es <strong>requerido</strong>
+          </span>
           <div class="row mt-2 text-center">
             <div class="col-lg-6">
-                <button type="button" class="btn btn-primary">Aceptar</button>
+                <button routerLink="/" type="button" class="btn btn-secondary">Volver</button>
             </div>
             <div class="col-lg-6">
-                <button type="button" class="btn btn-secondary">Volver</button>
+                <button [disabled]="form.invalid" type="submit" class="btn btn-primary">Aceptar</button>
             </div>
           </div>
         </form>
