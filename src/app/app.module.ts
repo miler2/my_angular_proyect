@@ -9,6 +9,7 @@ import { ListProductsComponent } from './components/list-products/list-products.
 // Modulos
 import { ReactiveFormsModule } from '@angular/forms';
 import { AddEditProductComponent } from './components/add-edit-product/add-edit-product.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { AddEditProductComponent } from './components/add-edit-product/add-edit-
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

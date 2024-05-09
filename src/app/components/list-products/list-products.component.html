@@ -15,10 +15,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of listProducts" class="table-active">
-        <td>{{ item.name }}</td>
-        <td>{{ item.description }}</td>
-        <td>{{ item.price }}</td>
+      <tr *ngFor="let item of products" class="table-active">
+        <!-- <p>{{ item }}</p> -->
+        <td>{{ item.nombre }}</td>
+        <td>{{ item.descripcion }}</td>
+        <td>{{ item.precio }}</td>
         <td>{{ item.stock }}</td>
         <td>
             <button type="button" class="btn btn-info btn-sm" routerLink="/edit/{{item.id}}">Edit</button>
