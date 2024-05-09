@@ -10,13 +10,15 @@ import { ListProductsComponent } from './components/list-products/list-products.
 import { ReactiveFormsModule } from '@angular/forms';
 import { AddEditProductComponent } from './components/add-edit-product/add-edit-product.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ProgressBarComponent } from './shared/progress-bar/progress-bar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     ListProductsComponent,
-    AddEditProductComponent
+    AddEditProductComponent,
+    ProgressBarComponent
   ],
   imports: [
     BrowserModule,

@@ -8,18 +8,18 @@
             type="text"
             class="form-control"
             placeholder="Ingrese nombre"
-            formControlName="name"
+            formControlName="nombre"
           />
-          <span *ngIf="form.get('name')?.hasError('required') && form.get('name')?.touched">
+          <span *ngIf="form.get('nombre')?.hasError('required') && form.get('nombre')?.touched">
             El campo nombre es <strong>requerido</strong>
           </span>
           <input
             type="text"
             class="form-control mt-2"
             placeholder="Ingrese descripcion"
-            formControlName="description"
+            formControlName="descripcion"
           />
-          <span *ngIf="form.get('description')?.hasError('required') && form.get('description')?.touched">
+          <span *ngIf="form.get('descripcion')?.hasError('required') && form.get('descripcion')?.touched">
             El campo descripcion es <strong>requerido</strong>
           </span>
           <input

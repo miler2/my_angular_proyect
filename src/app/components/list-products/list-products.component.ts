@@ -9,6 +9,8 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ListProductsComponent implements OnInit{
   public products: any;
+  loading: boolean = false;
+
   constructor(private apiService: ProductService) {}
 
   ngOnInit(): void {
@@ -16,8 +18,17 @@ export class ListProductsComponent implements OnInit{
   }
 
   getAllProducts(){
+    this.loading = true;
     this.apiService.getProducts().subscribe(resp => {
       this.products = resp;
+      this.loading = false;
     })
+  }
+
+  deleteProduct(id: number){
+    this.loading = true;
+    this.apiService.deleteProduct(id).subscribe(() => {
+      this.getAllProducts();
+    });
   }
 }
