@@ -3,10 +3,10 @@
 <div class="container" *ngIf="!loading">
   <div class="title">
     <h1>Listado de Productos</h1>
-    <button type="button" class="btn btn-primary" routerLink="/add">Agregar producto</button>
+    <button type="button" class="btn btn-primary" routerLink="/addedit">Agregar producto</button>
   </div>
 
-  <table class="table table-hover">
+  <table *ngIf="products.length > 0" class="table table-hover">
     <thead>
       <tr>
         <th scope="col">Nombre</th>
@@ -24,10 +24,11 @@
         <td>{{ item.precio | currency }}</td>
         <td>{{ item.stock }}</td>
         <td>
-            <button type="button" class="btn btn-info btn-sm" routerLink="/edit/{{item.id}}">Edit</button>
+            <button routerLink="/edit/{{item.id}}" type="button" class="btn btn-info btn-sm">Edit</button>
             <button (click)="deleteProduct(item.id)" type="button" class="btn btn-secondary btn-sm ms-2">Delete</button>
         </td>
       </tr>
     </tbody>
   </table>
+  <h5 *ngIf="products.length == 0">No hay productos para mostrar</h5>
 </div>

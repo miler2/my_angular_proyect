@@ -12,6 +12,10 @@ import { AddEditProductComponent } from './components/add-edit-product/add-edit-
 import { HttpClientModule } from '@angular/common/http';
 import { ProgressBarComponent } from './shared/progress-bar/progress-bar.component';
 
+// Toastr
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +28,15 @@ import { ProgressBarComponent } from './shared/progress-bar/progress-bar.compone
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule, // required animations module
+
+    // Dependencia para toastr. Aquí, dentro de "forRoot()" se le pasa algunas condiciones para modificar (como css)
+    ToastrModule.forRoot({
+      timeOut: 10000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+    }), // ToastrModule added
   ],
   providers: [],
   bootstrap: [AppComponent]

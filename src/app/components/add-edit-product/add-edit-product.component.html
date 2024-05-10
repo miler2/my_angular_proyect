@@ -1,7 +1,8 @@
-<div class="row mt-1">
+<app-progress-bar *ngIf="loading"></app-progress-bar>
+<div *ngIf="!loading" class="row mt-1">
   <div class="col-lg-4 offset-lg-5">
     <div class="card text-white bg-secondary mb-3" style="max-width: 20rem">
-      <div class="card-header text-center">Agregar producto</div>
+      <div class="card-header text-center">{{titulo_pagina}} producto</div>
       <div class="card-body">
         <form [formGroup]="form" (ngSubmit)="addProduct()">
           <input
@@ -26,10 +27,10 @@
             type="number"
             class="form-control mt-2"
             placeholder="Ingrese precio"
-            formControlName="price"
+            formControlName="precio"
           />
-          <span *ngIf="form.get('price')?.hasError('required') && form.get('price')?.touched">
-            El campo price es <strong>requerido</strong>
+          <span *ngIf="form.get('precio')?.hasError('required') && form.get('precio')?.touched">
+            El campo precio es <strong>requerido</strong>
           </span>
           <input
             type="number"
