@@ -10,9 +10,9 @@
           </li>
         </ul>
         <form class="d-flex ms-auto">
-          <!-- <button class="btn btn-secondary my-2 my-sm-0 mr-2" type="submit">Search</button> -->
-          <button *ngIf="!logged_in" routerLink="login" class="btn btn-secondary ml-1" type="submit">Login</button>
-          <button *ngIf="logged_in" class="btn btn-secondary ml-1" type="submit">Profile</button>
+          <button *ngIf="!logged_in" routerLink="login" class="btn btn-secondary ml-1">Login</button>
+          <button *ngIf="!logged_in" routerLink="register" class="btn btn-secondary ml-1">Register</button>
+          <button *ngIf="logged_in" class="btn btn-secondary ml-1">Profile</button>
         </form>
       </div>
     </div>

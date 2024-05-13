@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/interfaces/user';
 import { UserService } from 'src/app/services/user.service';
@@ -11,11 +12,13 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class RegisterComponent {
   form: FormGroup;
+  loading: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private apiService: UserService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
   ){
     this.form = this.formBuilder.group({
       nombre_usuario: ['', [Validators.required, Validators.maxLength(15)]],
@@ -25,6 +28,24 @@ export class RegisterComponent {
   }
 
   addUser(){
+    const user: User = {
+      nombre_usuario: this.form.value.nombre_usuario,
+      contrasena: this.form.value.contrasena
+    }
     
+    if (user.contrasena == this.form.value.repetir_contrasena) {
+      try {
+        this.loading = true;
+        this.apiService.addUser(user).subscribe(() => {
+          this.toastr.success(`Se ha registrado correctamente`);
+          this.router.navigate(['/']);
+        })
+      } catch (error) {
+        console.log(error)
+        this.toastr.error(`No se ha podido añadir el usuario correctamente`, `Error`)
+      }
+    } else {
+      this.toastr.warning(`Las contraseñas tienen que coincidir`)
+    }
   }
 }

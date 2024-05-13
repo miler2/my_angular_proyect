@@ -1,8 +1,9 @@
+<app-progress-bar *ngIf="loading"></app-progress-bar>
 <div class="modal-dialog" role="document">
     <div class="modal-content">
       <form [formGroup]="form" (ngSubmit)="addUser()">
         <div class="modal-header">
-          <h5 class="modal-title">Login</h5>
+          <h5 class="modal-title">Register</h5>
         </div>
         <div class="modal-body">
             <div class="inputs">
@@ -17,6 +18,13 @@
               <input formControlName="contrasena" type="password" class="form-control" placeholder="Escribir contraseña...">
               <span *ngIf="form.get('contrasena')?.hasError('required') && form.get('contrasena')?.touched">
                 El campo contraseña es <strong>requerido</strong>
+              </span>
+            </div>
+            <div class="inputs">
+              <label class="col-form-label" for="inputDefault">Repetir contraseña</label>
+              <input formControlName="repetir_contrasena" type="password" class="form-control" placeholder="Escribir contraseña...">
+              <span *ngIf="form.get('repetir_contrasena')?.hasError('required') && form.get('repetir_contrasena')?.touched">
+                El campo repetir contrasena es <strong>requerido</strong>
               </span>
             </div>
         </div>

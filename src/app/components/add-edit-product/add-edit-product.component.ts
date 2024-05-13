@@ -55,8 +55,6 @@ export class AddEditProductComponent implements OnInit{
       this.loading = true;
       product.id = this.id;
 
-      /* this.toastr.success(`${product.id}, ${product.nombre}, ${product.descripcion}, ${product.precio}, ${product.stock}`, 'Producto modificado');
-      this.apiService.editProduct(this.id, product).subscribe(); */
       this.apiService.editProduct(this.id, product).subscribe(() => {
         this.loading = false;
         this.toastr.success(`El producto ${product.nombre} fue modificado con exito`, 'Producto modificado');

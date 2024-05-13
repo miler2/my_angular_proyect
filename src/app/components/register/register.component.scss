@@ -1,0 +1,28 @@
+.modal-dialog{
+    display: flex;
+    justify-content: center;
+}
+
+.modal-title{
+    margin-left: 250px;
+}
+
+.inputs{
+    margin-left: 20px; margin-right: 20px;
+}
+
+.modal-content{
+    margin-top: 200px;
+    padding: 20px;
+    width: 600px;
+    border-radius: 25px;
+}
+
+.modal-footer{
+    margin-top: 15px;
+    margin-right: 20px;
+}
+
+.btn{
+    margin-left: 10px;
+}
