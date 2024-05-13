@@ -1,16 +1,20 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+// Modulos
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
+import { ComponentsModule } from './components/components.module';
+
+// Componentes
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ListProductsComponent } from './components/list-products/list-products.component';
-
-// Modulos
-import { ReactiveFormsModule } from '@angular/forms';
 import { AddEditProductComponent } from './components/add-edit-product/add-edit-product.component';
-import { HttpClientModule } from '@angular/common/http';
 import { ProgressBarComponent } from './shared/progress-bar/progress-bar.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 
 // Toastr
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -22,13 +26,16 @@ import { ToastrModule } from 'ngx-toastr';
     NavbarComponent,
     ListProductsComponent,
     AddEditProductComponent,
-    ProgressBarComponent
+    ProgressBarComponent,
+    LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    ComponentsModule,
     BrowserAnimationsModule, // required animations module
 
     // Dependencia para toastr. Aquí, dentro de "forRoot()" se le pasa algunas condiciones para modificar (como css)
@@ -36,7 +43,7 @@ import { ToastrModule } from 'ngx-toastr';
       timeOut: 10000,
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
-    }), // ToastrModule added
+    }), // ToastrModule (es para las alertas)
   ],
   providers: [],
   bootstrap: [AppComponent]

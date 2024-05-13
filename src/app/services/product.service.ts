@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 export class ProductService {
   constructor(private http: HttpClient) {}
 
+
+  // Productos
   public getProducts(){
     return this.http.get(`${environment.my_api}/productos`);
   }

@@ -17,11 +17,13 @@ export class AddEditProductComponent implements OnInit{
   id: number;
   titulo_pagina: string = 'Agregar ';
 
-  constructor(private fb: FormBuilder, 
+  constructor(
+    private fb: FormBuilder, 
     private apiService: ProductService,
     private router: Router,
     private toastr: ToastrService,
-    private aRouter: ActivatedRoute) {
+    private aRouter: ActivatedRoute
+  ) {
 
     this.form = this.fb.group({
       nombre: ['', [Validators.required, Validators.maxLength(20)]],
@@ -58,14 +60,14 @@ export class AddEditProductComponent implements OnInit{
       this.apiService.editProduct(this.id, product).subscribe(() => {
         this.loading = false;
         this.toastr.success(`El producto ${product.nombre} fue modificado con exito`, 'Producto modificado');
-        this.router.navigate(['/']);
+        this.router.navigate(['/products']);
       });
     } else {
       this.loading = true;
       this.apiService.addProduct(product).subscribe(() => {
         this.loading = false;
         this.toastr.success(`El producto ${product.nombre} fue registrado con exito`, 'Producto registrado');
-        this.router.navigate(['/']);
+        this.router.navigate(['/products']);
       });
     }
   }
@@ -73,7 +75,7 @@ export class AddEditProductComponent implements OnInit{
   getProduct(id: number) {
     this.loading = true;
     this.apiService.getProduct(id).subscribe((data: Product) => {
-      console.log(data);
+      // console.log(data);
       this.loading = false;
 
       // Cambiamos los valores del formulario para mostrar los datos del producto elegido
