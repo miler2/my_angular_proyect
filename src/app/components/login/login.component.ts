@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -10,7 +10,7 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent{
+export class LoginComponent implements OnInit{
   form: FormGroup;
   loading: boolean = false;
   
@@ -21,16 +21,21 @@ export class LoginComponent{
     private router: Router
   ){
     this.form = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.maxLength(50)]],
       nombre_usuario: ['', [Validators.required, Validators.maxLength(15)]],
       contrasena: ['', [Validators.required, Validators.maxLength(50)]],
     });
   }
 
+  ngOnInit(): void {
+    this.toastr.success(localStorage.getItem('User')?.toString());
+  }
+
   checkUser(){
-    this.apiService.getUser(this.form.value.nombre_usuario).subscribe((data: User) => {
+    this.apiService.getUser(this.form.value.email).subscribe((data: User) => {
       
       try {
-        if (data.nombre_usuario && this.form.value.contrasena == data.contrasena) {
+        if (data.email && this.form.value.contrasena == data.contrasena) {
           this.toastr.success('Sesión iniciada correctamente');
           localStorage.setItem('User', JSON.stringify(data)); // Esta línea guarda la información del login para mantener iniciada la sesión
           this.router.navigate(['/']);

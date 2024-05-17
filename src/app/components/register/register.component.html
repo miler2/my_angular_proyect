@@ -7,6 +7,13 @@
         </div>
         <div class="modal-body">
             <div class="inputs">
+              <label class="col-form-label" for="inputDefault">Email</label>
+              <input formControlName="email" type="text" class="form-control" placeholder="Escribir email...">
+              <span *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched">
+                El campo email es <strong>requerido</strong>
+              </span>
+            </div>
+            <div class="inputs">
               <label class="col-form-label" for="inputDefault">Usuario</label>
               <input formControlName="nombre_usuario" type="text" class="form-control" placeholder="Escribir usuario...">
               <span *ngIf="form.get('nombre_usuario')?.hasError('required') && form.get('nombre_usuario')?.touched">

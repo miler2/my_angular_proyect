@@ -29,6 +29,7 @@ export class RegisterComponent {
 
   addUser(){
     const user: User = {
+      email: this.form.value.email,
       nombre_usuario: this.form.value.nombre_usuario,
       contrasena: this.form.value.contrasena
     }
