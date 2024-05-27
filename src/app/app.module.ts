@@ -19,6 +19,7 @@ import { RegisterComponent } from './components/register/register.component';
 // Toastr
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { LandpageComponent } from './components/landpage/landpage.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ToastrModule } from 'ngx-toastr';
     ProgressBarComponent,
     LoginComponent,
     RegisterComponent,
+    LandpageComponent,
   ],
   imports: [
     BrowserModule,

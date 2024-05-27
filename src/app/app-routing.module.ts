@@ -7,6 +7,7 @@ import { AddEditProductComponent } from './components/add-edit-product/add-edit-
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LandpageComponent } from './components/landpage/landpage.component';
+import { BleDataComponent } from './components/ble-data/ble-data.component';
 
 const routes: Routes = [
   { path: '', component: LandpageComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'addedit', component: AddEditProductComponent },
   { path: 'edit/:id', component: AddEditProductComponent},
   { path: 'login', component: LoginComponent},
+  { path: 'ble_data', component: BleDataComponent},
   { path: 'register', component: RegisterComponent},
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="texto">
+        <h1>Datos obtenidos:</h1>
+        <p>Ahora mismo estamos a:</p>
+        <p>{{ jstoday }}</p><br>
+
+        <p class="datos" *ngFor="let data of datos">
+            <li>{{ data.name }}</li>
+            {{ data.date }}
+        </p>
+        
+    </div>
+</body>
+</html>

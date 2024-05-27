@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LandpageComponent } from './landpage/landpage.component';
+import { BleDataComponent } from './ble-data/ble-data.component';
 
 
 
 @NgModule({
   declarations: [
-    LandpageComponent
+    BleDataComponent
   ],
   imports: [
     CommonModule
