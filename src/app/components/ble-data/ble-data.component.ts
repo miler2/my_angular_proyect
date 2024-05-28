@@ -47,7 +47,7 @@ export class BleDataComponent{
     this.datos.forEach((dato: DatosBle) => {
         if (!dato.date){
             dato.date = moment(ultima_fecha).add(12, 'm');
-            this.toastr.success(dato.name, ultima_fecha);
+            this.toastr.success('Se ha añadido una fecha en el ', dato.name, ultima_fecha);
         }
 
         if (dato.date){
