@@ -21,6 +21,7 @@ export class RegisterComponent {
     private router: Router
   ){
     this.form = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.maxLength(40)]],
       nombre_usuario: ['', [Validators.required, Validators.maxLength(15)]],
       contrasena: ['', [Validators.required, Validators.maxLength(50)]],
       repetir_contrasena: ['', [Validators.required, Validators.maxLength(50)]],
