@@ -20,6 +20,8 @@ export class ListProductsComponent implements OnInit{
 
   getAllProducts(){
     this.loading = true;
+
+    // Si no hay respuesta del backend se queda cargando, hay que añadir una respuesta, que si en x tiempo no ha habido contacto, te mande un mensaje de error, o warning.
     this.apiService.getProducts().subscribe(resp => {
       this.products = resp;
       this.loading = false;
@@ -31,6 +33,7 @@ export class ListProductsComponent implements OnInit{
     this.apiService.deleteProduct(id).subscribe(() => {
       this.getAllProducts();
       this.toastr.warning('El producto ha sido eliminado con éxito', 'Producto eliminado');
+      this.loading = false; // Esto lo he añadido porque creo que faltaba, si hay un error con la barra, es por esta línea
     });
   }
 }
