@@ -39,7 +39,11 @@ export class LoginService {
   }
 
   setToken(token: string){
-    this.cookies.set("token", token)
+    this.cookies.set("token", token);  // Hace el login creando un token
+  }
+
+  logOut(){
+    this.cookies.delete("token"); // Hace log out eliminando el token
   }
 
   getToken(){

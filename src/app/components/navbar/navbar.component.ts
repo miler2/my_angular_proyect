@@ -31,4 +31,8 @@ export class NavbarComponent{
 
     this.loading = false;
   }
+
+  logOut(){
+    this.loginService.logOut();
+  }
 }

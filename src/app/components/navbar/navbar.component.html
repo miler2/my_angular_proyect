@@ -16,7 +16,7 @@
 
           <!-- Estoy logeado -->
           <button *ngIf="logged_in" class="btn btn-secondary ml-1">Profile</button>
-          <button *ngIf="logged_in" class="btn btn-secondary ml-1">Log out</button>
+          <button *ngIf="logged_in" (click)="logOut()" class="btn btn-secondary ml-1">Log out</button>
         </form>
       </div>
     </div>
