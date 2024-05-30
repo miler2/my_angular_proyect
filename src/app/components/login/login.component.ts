@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { timeout } from 'rxjs';
 import { LoginService } from 'src/app/services/login.service';
 
 @Component({
@@ -10,7 +9,7 @@ import { LoginService } from 'src/app/services/login.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit{
+export class LoginComponent{
   form: FormGroup;
   loading: boolean = false;
   
@@ -24,12 +23,15 @@ export class LoginComponent implements OnInit{
       email: ['', [Validators.required, Validators.maxLength(40)]],
       contrasena: ['', [Validators.required, Validators.maxLength(50)]],
     });
-  }
 
-  ngOnInit(): void {
-    this.loginService.isUserLogedIn();  // Si hay un token, entonces devuelve a la página principal.
-  }
 
+    if(this.loginService.getToken()){
+      this.loginService.updateLogedIn(true);
+      this.router.navigate(['/']);
+    } else {
+      this.loginService.updateLogedIn(false);
+    }
+  }
 
   login(){
     this.loading = true;
@@ -47,9 +49,13 @@ export class LoginComponent implements OnInit{
 
         // Hago un timeout para que le de tiempo al Token a guardarse en el navegador antes de recargar la página
         setTimeout(() => {
-          that.toastr.success('Login realizado con éxito');
-          that.router.navigate(['/']);
-        }, 500);
+          if (that.loginService.isUserLogedIn()){
+            that.toastr.success('Login realizado con éxito');
+            that.router.navigate(['/']);
+          } else {
+            that.toastr.warning('Intente recargar la página', 'Ha habido un error');
+          }
+        }, 100);  // 400 es posible
       },
       error(error: any) {
         console.log(error);
@@ -58,6 +64,6 @@ export class LoginComponent implements OnInit{
     };
     this.loginService.login(user).subscribe(observer);
 
-    this.loading = false;
+    // this.loading = false;
   }
 }

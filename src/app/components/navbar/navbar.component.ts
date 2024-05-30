@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { CanActivateFn } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
 
 @Component({
@@ -8,16 +7,28 @@ import { LoginService } from 'src/app/services/login.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent{
-  public logged_in: boolean = false;
+  public logged_in: boolean;
   loading: boolean = false;
 
   constructor(
     private loginService: LoginService
   ){
     this.loading = true;
+
+    // Inicializa la variable
     if(this.loginService.getToken()){
       this.logged_in = true;
+    } else {
+      this.logged_in = false;
     }
+
+    // Una vez iniciado el componente, si hay cambios, entonces me lo notifica y lo cambio.
+    this.loginService.data$.subscribe(data => {
+      if(data){
+        this.logged_in = data;
+      }
+    })
+
     this.loading = false;
   }
 }

@@ -10,9 +10,13 @@
           </li>
         </ul>
         <form *ngIf="!loading" class="d-flex ms-auto">
+          <!-- No estoy logeado -->
           <button *ngIf="!logged_in" routerLink="login" class="btn btn-secondary ml-1">Login</button>
           <button *ngIf="!logged_in" routerLink="register" class="btn btn-secondary ml-1">Register</button>
+
+          <!-- Estoy logeado -->
           <button *ngIf="logged_in" class="btn btn-secondary ml-1">Profile</button>
+          <button *ngIf="logged_in" class="btn btn-secondary ml-1">Log out</button>
         </form>
       </div>
     </div>
