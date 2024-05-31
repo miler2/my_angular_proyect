@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Product } from 'src/app/interfaces/product';
+import { LoginService } from 'src/app/services/login.service';
 import { ProductService } from 'src/app/services/product.service';
 
 
@@ -22,6 +23,7 @@ export class AddEditProductComponent implements OnInit{
     private apiService: ProductService,
     private router: Router,
     private toastr: ToastrService,
+    private loginService: LoginService,
     private aRouter: ActivatedRoute
   ) {
 
@@ -31,6 +33,15 @@ export class AddEditProductComponent implements OnInit{
       precio: ['', Validators.required],
       stock: ['', Validators.required],
     })
+
+    this.loginService.isUserLogedIn();  // Compruebo si está iniciado en sesión (inicializo la), y cambio la variable correspondientemente
+    this.loginService.data$.subscribe({
+      next: (data) => {
+        if(data == false){
+          this.router.navigate(['/']);
+        }
+      }
+    });
 
     // aRouter.snapshot.paramMap.get('id'); esto captura la id del producto dado en la url de la página (para saber si estamos editando un producto, o añadiendo uno nuevo)
     this.id = Number(aRouter.snapshot.paramMap.get('id'));

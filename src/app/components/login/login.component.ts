@@ -11,7 +11,7 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class LoginComponent{
   form: FormGroup;
-  loading: boolean = false;
+  loading: boolean;
   
   constructor(
     private formBuilder: FormBuilder,
@@ -24,46 +24,40 @@ export class LoginComponent{
       contrasena: ['', [Validators.required, Validators.maxLength(50)]],
     });
 
-
-    if(this.loginService.getToken()){
-      this.loginService.updateLogedIn(true);
-      this.router.navigate(['/']);
-    } else {
-      this.loginService.updateLogedIn(false);
-    }
+    this.loading = true;
+    this.loginService.data$.subscribe({
+      next: (data) => {
+        if(data == true){
+          this.router.navigate(['/']);
+        }
+      }
+    });
+    this.loading = false;
   }
 
   login(){
     this.loading = true;
+    // let token: string;
     const user = {
       email: this.form.value.email,
       contrasena: this.form.value.contrasena
     };
 
-    // Dentro de esta función no puedo usar "this", por lo que he usado "that" así:
-    const that = this;
-    const observer = {
-      next(data: any) {
-        that.loading = true;
-        that.loginService.setToken(data.token);
-
-        // Hago un timeout para que le de tiempo al Token a guardarse en el navegador antes de recargar la página
-        setTimeout(() => {
-          if (that.loginService.isUserLogedIn()){
-            that.toastr.success('Login realizado con éxito');
-            that.router.navigate(['/']);
-          } else {
-            that.toastr.warning('Intente recargar la página', 'Ha habido un error');
-          }
-        }, 100);  // 400 es posible
-      },
-      error(error: any) {
-        console.log(error);
-        that.toastr.error('Email o contraseña incorrectos', 'Error');
+    // Guardamos en la variable token el valor del token que nos da la función
+    this.loginService.login(user).subscribe(
+      data => {
+        const token = (data as any).token;
+        this.loginService.setToken(token);
+        this.loginService.updateLogedIn(true);
       }
-    };
-    this.loginService.login(user).subscribe(observer);
-
-    // this.loading = false;
+    );
+    /* setTimeout(() => {
+      try {
+        this.toastr.success('Login realizado con éxito');
+        this.router.navigate(['/']);
+      } catch (error) {
+        this.toastr.warning('Intente recargar la página', 'Ha habido un error');
+      }
+    }, 100); */
   }
 }

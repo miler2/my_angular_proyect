@@ -9,27 +9,23 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./list-products.component.scss']
 })
 export class ListProductsComponent implements OnInit{
-  public products: any;
+  products: any;
   loading: boolean = false;
-  loggedIn!: boolean;
-  user : any;
+  logged_in: boolean = false;
 
   constructor(
     private apiService: ProductService,
     private toastr: ToastrService,
     private loginService: LoginService
   ){
-    // Si el usuario tiene un token válido, entonces está logeado
     this.loading = true;
-    this.loginService.verifyUser().subscribe({
-      // El valor "data" es true, y data.success es undefined
+
+    /* Esta línea de abajo me genera una anomalía en la página. No tengo claro por qué, 
+    pero creo que es porque otro componente ya está suscrito a ésto o algo. */
+    // this.loginService.isUserLogedIn();  // Compruebo si está iniciado en sesión, y cambio la variable correspondientemente
+    this.loginService.data$.subscribe({
       next: (data) => {
-        this.loggedIn = true;
-        console.log(data);
-      },
-      error: () => {
-        this.loggedIn = false;
-        this.toastr.error('Ha habido un error');
+        this.logged_in = data;  // La variable guardada antes la almacenamos localmente
       }
     });
     this.loading = false;

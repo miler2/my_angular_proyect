@@ -25,9 +25,21 @@ export class LoginService {
     this.dataSubject.next(logedIn);
   }
 
+  // Si el usuario tiene un token válido, entonces está logeado
+  isUserLogedIn(){
+    this.verifyUser().subscribe({
+      next: () => {
+        this.updateLogedIn(true);
+      },
+      error: () => {
+        this.updateLogedIn(false);
+      }
+    });
+  }
+
   // API
-  login(user: User){
-    return this.http.post(`${this.myApiUrl}${this.loginUrl}`, user);
+  login(user: User): Observable<string>{
+    return this.http.post<string>(`${this.myApiUrl}${this.loginUrl}`, user);
   }
 
   verifyUser(): Observable<boolean>{
@@ -35,22 +47,6 @@ export class LoginService {
     const body = { token }; // Para poder pasarselo como JSON tengo que añadir esta línea ("body" es un json con el token)
     return this.http.post<boolean>(`${this.myApiUrl}${this.loginUrl}verifyToken`, body);
   }
-
-
-  // ELIMINAR
-  
-  // En cuanto a esto se refiere hay mucha redundancia en los archivos
-  // Quiero cambiar esto luego, cuando arregle el problema del login
-  isUserLogedIn(): boolean{
-    if(this.getToken()){
-      this.updateLogedIn(true);
-      return true;
-    } else {
-      this.updateLogedIn(false);
-      return false;
-    }
-  }
-  // ELIMINAR
 
 
   // COOKIES
