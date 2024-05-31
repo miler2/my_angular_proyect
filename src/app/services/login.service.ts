@@ -3,8 +3,8 @@ import { environment } from 'src/environments/environment';
 import { User } from '../interfaces/user';
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
-import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +15,7 @@ export class LoginService {
 
   constructor(
     private http: HttpClient,
-    private cookies: CookieService,
-    private router: Router
+    private cookies: CookieService
   ) {}
 
   private dataSubject = new BehaviorSubject<boolean>(false);
@@ -26,6 +25,20 @@ export class LoginService {
     this.dataSubject.next(logedIn);
   }
 
+  // API
+  login(user: User){
+    return this.http.post(`${this.myApiUrl}${this.loginUrl}`, user);
+  }
+
+  verifyUser(): Observable<boolean>{
+    const token = this.getToken();
+    const body = { token }; // Para poder pasarselo como JSON tengo que añadir esta línea ("body" es un json con el token)
+    return this.http.post<boolean>(`${this.myApiUrl}${this.loginUrl}verifyToken`, body);
+  }
+
+
+  // ELIMINAR
+  
   // En cuanto a esto se refiere hay mucha redundancia en los archivos
   // Quiero cambiar esto luego, cuando arregle el problema del login
   isUserLogedIn(): boolean{
@@ -37,7 +50,10 @@ export class LoginService {
       return false;
     }
   }
+  // ELIMINAR
 
+
+  // COOKIES
   setToken(token: string){
     this.cookies.set("token", token);  // Hace el login creando un token
   }
@@ -47,16 +63,6 @@ export class LoginService {
   }
 
   getToken(){
-    return this.cookies.get("token");
-  }
-
-  // API
-  login(user: User){
-    return this.http.post(`${this.myApiUrl}${this.loginUrl}`, user);
-  }
-
-  verifyUser(){
-    const token = this.getToken();
-    return this.http.post(`${this.myApiUrl}${this.loginUrl}verifyToken`, token);
+    return this.cookies.get("token"); // Obtiene el token de la página web (no está verificado)
   }
 }

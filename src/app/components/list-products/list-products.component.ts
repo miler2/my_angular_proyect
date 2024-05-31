@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastrService } from 'ngx-toastr'; // toastr
-// import { Product } from 'src/app/interfaces/product';
+import { ToastrService } from 'ngx-toastr';
+import { LoginService } from 'src/app/services/login.service';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -11,8 +11,30 @@ import { ProductService } from 'src/app/services/product.service';
 export class ListProductsComponent implements OnInit{
   public products: any;
   loading: boolean = false;
+  loggedIn!: boolean;
+  user : any;
 
-  constructor(private apiService: ProductService, private toastr: ToastrService) {}
+  constructor(
+    private apiService: ProductService,
+    private toastr: ToastrService,
+    private loginService: LoginService
+  ){
+    // Si el usuario tiene un token válido, entonces está logeado
+    this.loading = true;
+    this.loginService.verifyUser().subscribe({
+      // El valor "data" es true, y data.success es undefined
+      next: (data) => {
+        this.loggedIn = true;
+        console.log(data);
+      },
+      error: () => {
+        this.loggedIn = false;
+        this.toastr.error('Ha habido un error');
+      }
+    });
+    this.loading = false;
+  }
+
 
   ngOnInit(): void {
     this.getAllProducts();
