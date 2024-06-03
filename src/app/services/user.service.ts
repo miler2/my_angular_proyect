@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
 })
 export class UserService {
   private myApiUrl = environment.myBaseAppUrl;
-  private usuariosUrl = '/usuarios';
+  private usuariosUrl = '/usuarios/';
 
   constructor(private http: HttpClient) { }
 
@@ -20,6 +20,6 @@ export class UserService {
   }
 
   public addUser(user: User){
-    return this.http.post(`${this.myApiUrl}${this.usuariosUrl}/add`, user);
+    return this.http.post(`${this.myApiUrl}${this.usuariosUrl}add`, user);
   }
 }

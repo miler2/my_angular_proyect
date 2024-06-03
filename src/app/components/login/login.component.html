@@ -1,5 +1,5 @@
 <app-progress-bar *ngIf="loading"></app-progress-bar>
-<div *ngIf="!loading" class="modal-dialog" role="document">
+<div class="modal-dialog" role="document">
   <div class="modal-content">
     <form [formGroup]="form" (ngSubmit)="login()">
       <div class="modal-header">

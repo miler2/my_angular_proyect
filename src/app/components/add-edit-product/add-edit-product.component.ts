@@ -17,6 +17,7 @@ export class AddEditProductComponent implements OnInit{
   loading: boolean = false;
   id: number;
   titulo_pagina: string = 'Agregar ';
+  logged_in: boolean = false;
 
   constructor(
     private fb: FormBuilder, 
@@ -34,14 +35,17 @@ export class AddEditProductComponent implements OnInit{
       stock: ['', Validators.required],
     })
 
-    this.loginService.isUserLogedIn();  // Compruebo si está iniciado en sesión (inicializo la), y cambio la variable correspondientemente
+    this.loading = true;
+
+    /* Esta línea de abajo me genera una anomalía en la página. No tengo claro por qué, 
+    pero creo que es porque otro componente ya está suscrito a ésto o algo. */
+    // this.loginService.isUserLogedIn();  // Compruebo si está iniciado en sesión, y cambio la variable correspondientemente
     this.loginService.data$.subscribe({
       next: (data) => {
-        if(data == false){
-          this.router.navigate(['/']);
-        }
+        this.logged_in = data;  // La variable guardada antes la almacenamos localmente
       }
     });
+    this.loading = false;
 
     // aRouter.snapshot.paramMap.get('id'); esto captura la id del producto dado en la url de la página (para saber si estamos editando un producto, o añadiendo uno nuevo)
     this.id = Number(aRouter.snapshot.paramMap.get('id'));

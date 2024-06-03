@@ -25,6 +25,7 @@ export class LoginComponent{
     });
 
     this.loading = true;
+    // Aquí no hace falta inicializar la variable, no se por qué
     this.loginService.data$.subscribe({
       next: (data) => {
         if(data == true){
@@ -44,20 +45,17 @@ export class LoginComponent{
     };
 
     // Guardamos en la variable token el valor del token que nos da la función
-    this.loginService.login(user).subscribe(
-      data => {
+    this.loginService.login(user).subscribe({
+      next: (data) => {
         const token = (data as any).token;
         this.loginService.setToken(token);
         this.loginService.updateLogedIn(true);
-      }
-    );
-    /* setTimeout(() => {
-      try {
         this.toastr.success('Login realizado con éxito');
-        this.router.navigate(['/']);
-      } catch (error) {
-        this.toastr.warning('Intente recargar la página', 'Ha habido un error');
+      },
+      error: () => {
+        this.toastr.warning('Credenciales incorrectas');
+        this.loading = false;
       }
-    }, 100); */
+    });
   }
 }

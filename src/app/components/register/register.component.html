@@ -8,35 +8,41 @@
         <div class="modal-body">
             <div class="inputs">
               <label class="col-form-label" for="inputDefault">Email</label>
-              <input formControlName="email" type="email" class="form-control" placeholder="Escribir email...">
+              <input 
+                [ngClass]="{'is-invalid': form.get('email')?.errors?.['email'] && form.get('email')?.touched}"
+                formControlName="email" type="email" class="form-control" placeholder="Email..."
+              >
               <span *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched">
                 El campo email es <strong>requerido</strong>
+              </span>
+              <span *ngIf="form.get('email')?.errors?.['email'] && form.get('email')?.touched">
+                El email no tiene el formato correcto
               </span>
             </div>
             <div class="inputs">
               <label class="col-form-label" for="inputDefault">Usuario</label>
-              <input formControlName="nombre_usuario" type="text" class="form-control" placeholder="Escribir usuario...">
+              <input formControlName="nombre_usuario" type="text" class="form-control" placeholder="Nombre de usuario...">
               <span *ngIf="form.get('nombre_usuario')?.hasError('required') && form.get('nombre_usuario')?.touched">
                 El campo usuario es <strong>requerido</strong>
               </span>
             </div>
             <div class="inputs">
               <label class="col-form-label" for="inputDefault">Contraseña</label>
-              <input formControlName="contrasena" type="password" class="form-control" placeholder="Escribir contraseña...">
+              <input formControlName="contrasena" type="password" class="form-control" placeholder="Contraseña...">
               <span *ngIf="form.get('contrasena')?.hasError('required') && form.get('contrasena')?.touched">
                 El campo contraseña es <strong>requerido</strong>
               </span>
             </div>
             <div class="inputs">
               <label class="col-form-label" for="inputDefault">Repetir contraseña</label>
-              <input formControlName="repetir_contrasena" type="password" class="form-control" placeholder="Escribir contraseña...">
+              <input formControlName="repetir_contrasena" type="password" class="form-control" placeholder="Repetir contraseña...">
               <span *ngIf="form.get('repetir_contrasena')?.hasError('required') && form.get('repetir_contrasena')?.touched">
                 El campo repetir contrasena es <strong>requerido</strong>
               </span>
             </div>
         </div>
         <div class="modal-footer">
-          <button [disabled]="form.invalid" type="submit" class="btn btn-primary" type="submit">Login</button>
+          <button [disabled]="form.invalid" class="btn btn-primary" type="submit">Login</button>
           <button routerLink="" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
         </div>
       </form>
