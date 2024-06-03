@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+
+// Servicios
+import { CookieService } from 'ngx-cookie-service';
 
 // Modulos
+import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
@@ -45,7 +48,7 @@ import { ToastrModule } from 'ngx-toastr';
       preventDuplicates: true,
     }), // ToastrModule (es para las alertas)
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

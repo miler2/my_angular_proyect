@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Product } from 'src/app/interfaces/product';
+import { LoginService } from 'src/app/services/login.service';
 import { ProductService } from 'src/app/services/product.service';
 
 
@@ -16,12 +17,14 @@ export class AddEditProductComponent implements OnInit{
   loading: boolean = false;
   id: number;
   titulo_pagina: string = 'Agregar ';
+  logged_in: boolean = false;
 
   constructor(
     private fb: FormBuilder, 
     private apiService: ProductService,
     private router: Router,
     private toastr: ToastrService,
+    private loginService: LoginService,
     private aRouter: ActivatedRoute
   ) {
 
@@ -31,6 +34,18 @@ export class AddEditProductComponent implements OnInit{
       precio: ['', Validators.required],
       stock: ['', Validators.required],
     })
+
+    this.loading = true;
+
+    /* Esta línea de abajo me genera una anomalía en la página. No tengo claro por qué, 
+    pero creo que es porque otro componente ya está suscrito a ésto o algo. */
+    // this.loginService.isUserLogedIn();  // Compruebo si está iniciado en sesión, y cambio la variable correspondientemente
+    this.loginService.data$.subscribe({
+      next: (data) => {
+        this.logged_in = data;  // La variable guardada antes la almacenamos localmente
+      }
+    });
+    this.loading = false;
 
     // aRouter.snapshot.paramMap.get('id'); esto captura la id del producto dado en la url de la página (para saber si estamos editando un producto, o añadiendo uno nuevo)
     this.id = Number(aRouter.snapshot.paramMap.get('id'));

@@ -8,27 +8,28 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ProductService {
+  private myApiUrl = environment.myBaseAppUrl;
+  private productosUrl = '/productos/';
+
   constructor(private http: HttpClient) {}
 
-
-  // Productos
   public getProducts(){
-    return this.http.get(`${environment.my_api}/productos`);
+    return this.http.get(`${this.myApiUrl}${this.productosUrl}`);
   }
 
   public getProduct(id: number): Observable<Product>{
-    return this.http.get<Product>(`${environment.my_api}/productos/${id}`);
+    return this.http.get<Product>(`${this.myApiUrl}${this.productosUrl}${id}`);
   }
 
   public addProduct(producto: Product){
-    return this.http.post(`${environment.my_api}/productos/add`, producto);
+    return this.http.post(`${this.myApiUrl}${this.productosUrl}add`, producto);
   }
 
   editProduct(id: number, producto: Product){
-    return this.http.put(`${environment.my_api}/productos/${id}`, producto);
+    return this.http.put(`${this.myApiUrl}${this.productosUrl}${id}`, producto);
   }
 
   public deleteProduct(id: number){
-    return this.http.delete(`${environment.my_api}/productos/delete/${id}`);
+    return this.http.delete(`${this.myApiUrl}${this.productosUrl}delete/${id}`);
   }
 }

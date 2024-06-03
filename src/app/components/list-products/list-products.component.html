@@ -1,6 +1,6 @@
 <app-progress-bar *ngIf="loading"></app-progress-bar>
 
-<div class="container" *ngIf="!loading">
+<div class="container" *ngIf="!loading && logged_in">
   <div class="title">
     <h1>Listado de Productos</h1>
     <button type="button" class="btn btn-primary" routerLink="/addedit">Agregar producto</button>
@@ -31,4 +31,10 @@
     </tbody>
   </table>
   <h5 *ngIf="products.length == 0">No hay productos para mostrar</h5>
+</div>
+<div class="miContainer" *ngIf="!loading && !logged_in">
+  <div class="texto">
+    <h2>No ha iniciado sesión</h2>
+    <p>Inicie sesión para acceder a la lista de productos.</p>
+  </div>
 </div>
