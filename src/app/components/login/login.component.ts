@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { User } from 'src/app/interfaces/user';
-import { UserService } from 'src/app/services/user.service';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -12,36 +11,51 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class LoginComponent{
   form: FormGroup;
-  loading: boolean = false;
+  loading: boolean;
   
   constructor(
     private formBuilder: FormBuilder,
-    private apiService: UserService,
     private toastr: ToastrService,
+    private loginService: LoginService,
     private router: Router
   ){
     this.form = this.formBuilder.group({
-      nombre_usuario: ['', [Validators.required, Validators.maxLength(15)]],
+      email: ['', [Validators.required, Validators.maxLength(40)]],
       contrasena: ['', [Validators.required, Validators.maxLength(50)]],
     });
+
+    this.loading = true;
+    // Aquí no hace falta inicializar la variable, no se por qué
+    this.loginService.data$.subscribe({
+      next: (data) => {
+        if(data == true){
+          this.router.navigate(['/']);
+        }
+      }
+    });
+    this.loading = false;
   }
 
-  checkUser(){
-    this.apiService.getUser(this.form.value.nombre_usuario).subscribe((data: User) => {
-      
-      try {
-        if (data.nombre_usuario && this.form.value.contrasena == data.contrasena) {
-          this.toastr.success('Sesión iniciada correctamente');
-          localStorage.setItem('User', JSON.stringify(data)); // Esta línea guarda la información del login para mantener iniciada la sesión
-          this.router.navigate(['/']);
-        } else {
-          this.toastr.warning(`Usuario o contraseña son incorrectos`, `Error de inicio de sesión`)
-        }
-      } catch (error) {
-        console.log(error);
-        this.toastr.warning(`Usuario o contraseña son incorrectos`, `Error de inicio de sesión`)
+  login(){
+    this.loading = true;
+    // let token: string;
+    const user = {
+      email: this.form.value.email,
+      contrasena: this.form.value.contrasena
+    };
+
+    // Guardamos en la variable token el valor del token que nos da la función
+    this.loginService.login(user).subscribe({
+      next: (data) => {
+        const token = (data as any).token;
+        this.loginService.setToken(token);
+        this.loginService.updateLogedIn(true);
+        this.toastr.success('Login realizado con éxito');
+      },
+      error: () => {
+        this.toastr.warning('Credenciales incorrectas');
+        this.loading = false;
       }
-      
-    })
+    });
   }
 }

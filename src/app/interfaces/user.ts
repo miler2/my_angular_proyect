@@ -1,4 +1,5 @@
 export interface User {
-    nombre_usuario: string;
+    email: string;
+    nombre_usuario?: string;
     contrasena: string;
 }

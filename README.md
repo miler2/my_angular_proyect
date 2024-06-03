@@ -4,7 +4,7 @@
 
 In order to use angular, we will need node.js, npm and angular cli. First we will need to install node.js, and we will select npm in the installation:
 
-![](photos_readme/nodejs_installation.png)
+![nodejs_installation_options](photos_readme/nodejs_installation.png)
 
 When it is installed, we will install angular cli with the following command:
 
@@ -13,6 +13,14 @@ npm install -g @angular/cli@16
 ```
 
 Here we are specifying that we want the version 16.
+
+## Dependencies:
+
+In order to use cookies in our website we will need the package "ngx-cookie-service". In order to install it we will need this command:
+
+```
+npm install ngx-cookie-service --save
+```
 
 ## How to create a workspace.  
 
