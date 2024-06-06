@@ -16,10 +16,85 @@ Here we are specifying that we want the version 16.
 
 ## Dependencies:
 
+To install all the dependences of this project you can just use the following command:
+
+```
+npm install
+```
+
+This tells the project to install all the depencences that are listed in the package.json file that stores all the dependences needed for the project.
+
+When you install any dependency for the first time you should use the argument **--save**, which tells the command to save the dependency in the file package.json too, and store it for future downloads (for the command "npm install" discussed earlier).
+
+- ngx-cookie-service
+
 In order to use cookies in our website we will need the package "ngx-cookie-service". In order to install it we will need this command:
 
 ```
 npm install ngx-cookie-service --save
+```
+
+- express **API*
+
+This is an important dependency for our API.
+
+```
+npm install express --save
+```
+
+- nodemon   **API*
+
+This one if so we don't have to restart the service every time we make any kind of change. (goes hand in hand with "tsc" for typescript files).
+
+```
+npm install nodemon --save-dev
+```
+
+Ejemplo de ejecución:
+>nodemon [direccion_archivo]
+
+- morgan 
+
+This one is to see the information of the petitions sent to the API within the console.
+
+```
+npm install morgan --save
+```
+
+- body-parser 
+
+This one is to format the code in a more legible way, like using it to format text into JSON.
+
+```
+npm install body-parser --save
+```
+
+- mariadb 
+
+I have been using MariaDB for my database, so we would have to install this dependency too.
+
+```
+npm install mariadb --save
+```
+
+- jwt (Json Web Token) 
+
+This dependency is necesary for mantaining the session of a user initiated in the website. In other words, managing the login of a user with tokens.
+
+```
+npm install jsonwebtoken --save
+```
+
+All these dependences can be installed with a single command:
+
+```
+npm install express morgan body-parser nodemon mariadb jsonwebtoken --save 
+```
+
+However if you just need to install all the dependencies of the current project, if they are listed in the file package.json, then you will be able to just type this command:
+
+```
+npm install
 ```
 
 ## How to create a workspace.  
