@@ -6,39 +6,57 @@
           <h5 class="modal-title">Register</h5>
         </div>
         <div class="modal-body">
+
+            <!-- email -->
             <div class="inputs">
               <label class="col-form-label" for="inputDefault">Email</label>
               <input 
-                [ngClass]="{'is-invalid': form.get('email')?.errors?.['email'] && form.get('email')?.touched}"
+                [ngClass]="{'is-invalid': form.get('email')?.errors?.['email'] && form.get('email')?.touched || form.get('email')?.hasError?.('required') && form.get('email')?.touched}"
                 formControlName="email" type="email" class="form-control" placeholder="Email..."
-              >
-              <span *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched">
-                El campo email es <strong>requerido</strong>
-              </span>
-              <span *ngIf="form.get('email')?.errors?.['email'] && form.get('email')?.touched">
-                El email no tiene el formato correcto
-              </span>
+              />
+                <!-- Mensajes de error -->
+                <span *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched">
+                  El campo email es <strong>requerido</strong>
+                </span>
+                <span *ngIf="form.get('email')?.errors?.['email'] && form.get('email')?.touched">
+                  El email no tiene el formato correcto
+                </span>
             </div>
+
+            <!-- Usuario -->
             <div class="inputs">
               <label class="col-form-label" for="inputDefault">Usuario</label>
-              <input formControlName="nombre_usuario" type="text" class="form-control" placeholder="Nombre de usuario...">
-              <span *ngIf="form.get('nombre_usuario')?.hasError('required') && form.get('nombre_usuario')?.touched">
-                El campo usuario es <strong>requerido</strong>
-              </span>
+              <input 
+                [ngClass]="{'is-invalid': form.get('nombre_usuario')?.hasError?.('required') && form.get('nombre_usuario')?.touched}"
+                formControlName="nombre_usuario" type="text" class="form-control" placeholder="Nombre de usuario...">
+                <!-- Mensajes de error -->
+                <span *ngIf="form.get('nombre_usuario')?.hasError('required') && form.get('nombre_usuario')?.touched">
+                  El campo usuario es <strong>requerido</strong>
+                </span>
             </div>
+
+            <!-- Contraseña -->
             <div class="inputs">
               <label class="col-form-label" for="inputDefault">Contraseña</label>
-              <input formControlName="contrasena" type="password" class="form-control" placeholder="Contraseña...">
-              <span *ngIf="form.get('contrasena')?.hasError('required') && form.get('contrasena')?.touched">
-                El campo contraseña es <strong>requerido</strong>
-              </span>
+              <input 
+                [ngClass]="{'is-invalid': form.get('contrasena')?.hasError?.('required') && form.get('contrasena')?.touched}"
+                formControlName="contrasena" type="password" class="form-control" placeholder="Contraseña...">
+                <!-- Mensajes de error -->
+                <span *ngIf="form.get('contrasena')?.hasError('required') && form.get('contrasena')?.touched">
+                  El campo contraseña es <strong>requerido</strong>
+                </span>
             </div>
+
+            <!-- Repetir contraseña -->
             <div class="inputs">
               <label class="col-form-label" for="inputDefault">Repetir contraseña</label>
-              <input formControlName="repetir_contrasena" type="password" class="form-control" placeholder="Repetir contraseña...">
-              <span *ngIf="form.get('repetir_contrasena')?.hasError('required') && form.get('repetir_contrasena')?.touched">
-                El campo repetir contrasena es <strong>requerido</strong>
-              </span>
+              <input 
+                [ngClass]="{'is-invalid': form.get('repetir_contrasena')?.hasError?.('required') && form.get('repetir_contrasena')?.touched}"
+                formControlName="repetir_contrasena" type="password" class="form-control" placeholder="Repetir contraseña...">
+                <!-- Mensajes de error -->
+                <span *ngIf="form.get('repetir_contrasena')?.hasError('required') && form.get('repetir_contrasena')?.touched">
+                  El campo repetir contrasena es <strong>requerido</strong>
+                </span>
             </div>
         </div>
         <div class="modal-footer">
