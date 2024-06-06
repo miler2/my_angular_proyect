@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { formatDate } from '@angular/common';
-import { Moment } from 'moment';
+// import { formatDate } from '@angular/common';
+// import { Moment } from 'moment';
 import { DatosBle } from 'src/app/interfaces/datos-ble';
 import * as moment from 'moment';
 
