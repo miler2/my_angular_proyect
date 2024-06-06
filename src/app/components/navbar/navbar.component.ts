@@ -15,13 +15,21 @@ export class NavbarComponent{
   ){
     this.loading = true;
 
-    this.loginService.isUserLogedIn();  // Compruebo si está iniciado en sesión, y cambio la variable correspondientemente
+    // Compruebo si está iniciado en sesión, y cambio la variable correspondientemente
+    if(this.loginService.getToken()){
+      this.loginService.isUserLogedIn();
+    } else {
+      this.loginService.updateLogedIn(false);
+    }
+
     this.loginService.data$.subscribe({
       next: (data) => {
         this.logged_in = data;  // La variable guardada antes la almacenamos localmente
       }
     });
 
+    
+    
     this.loading = false;
   }
 

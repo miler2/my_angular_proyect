@@ -1,5 +1,3 @@
-// Ahora mismo no se está usando estas funciones en la API
-
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -15,11 +13,11 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  public getUser(nombre: string): Observable<User>{
+  public getUser(nombre: string): Observable<User>{ // No está en uso
     return this.http.get<User>(`${this.myApiUrl}${this.usuariosUrl}${nombre}`);
   }
 
-  public addUser(user: User){
-    return this.http.post(`${this.myApiUrl}${this.usuariosUrl}add`, user);
+  public addUser(user: User): Observable<User>{
+    return this.http.post<User>(`${this.myApiUrl}${this.usuariosUrl}add`, user);
   }
 }
