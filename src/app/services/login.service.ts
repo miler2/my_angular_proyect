@@ -28,11 +28,13 @@ export class LoginService {
   // Si el usuario tiene un token válido, entonces está logeado
   isUserLogedIn(){
     this.verifyUser().subscribe({
-      next: () => {
-        this.updateLogedIn(true);
-      },
-      error: () => {
-        this.updateLogedIn(false);
+      next: (data) => {
+        if (data === true){
+          this.updateLogedIn(true);
+        }else{
+          console.log(data);
+          this.updateLogedIn(false);
+        }
       }
     });
   }
@@ -42,10 +44,10 @@ export class LoginService {
     return this.http.post<string>(`${this.myApiUrl}${this.loginUrl}`, user);
   }
 
-  verifyUser(): Observable<boolean>{
+  verifyUser(){
     const token = this.getToken();
     const body = { token }; // Para poder pasarselo como JSON tengo que añadir esta línea ("body" es un json con el token)
-    return this.http.post<boolean>(`${this.myApiUrl}${this.loginUrl}verifyToken`, body);
+    return this.http.post(`${this.myApiUrl}${this.loginUrl}verifyToken`, body);
   }
 
   

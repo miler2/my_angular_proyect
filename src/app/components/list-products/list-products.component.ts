@@ -19,16 +19,7 @@ export class ListProductsComponent implements OnInit{
     private loginService: LoginService
   ){
     this.loading = true;
-
-    /* if(this.loginService.getToken()){ // En el caso en el que haya algo en la variable token del navegador, miramos si es válido o no e inicializamos la variable.
-      this.loginService.isUserLogedIn();
-    } else {
-      this.loginService.updateLogedIn(false);
-    } */
     
-    /* Esta línea de abajo me genera una anomalía en la página. No tengo claro por qué, 
-    pero creo que es porque otro componente ya está suscrito a ésto o algo. */
-    // this.loginService.isUserLogedIn();  // Compruebo si está iniciado en sesión, y cambio la variable correspondientemente
     this.loginService.data$.subscribe({
       next: (data) => {
         this.logged_in = data;  // La variable guardada antes la almacenamos localmente

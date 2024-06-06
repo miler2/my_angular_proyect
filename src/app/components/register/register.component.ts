@@ -30,12 +30,6 @@ export class RegisterComponent {
     });
 
     this.loading = true;
-
-    if(this.loginService.getToken()){
-      this.loginService.isUserLogedIn();
-    } else {
-      this.loginService.updateLogedIn(false);
-    }
     
     this.loginService.data$.subscribe({
       next: (data) => {
