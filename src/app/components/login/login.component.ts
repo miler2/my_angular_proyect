@@ -25,7 +25,7 @@ export class LoginComponent{
     });
 
     this.loading = true;
-    // Aquí no hace falta inicializar la variable, no se por qué
+
     this.loginService.data$.subscribe({
       next: (data) => {
         if(data == true){
@@ -33,6 +33,7 @@ export class LoginComponent{
         }
       }
     });
+    
     this.loading = false;
   }
 
@@ -51,6 +52,9 @@ export class LoginComponent{
         this.loginService.setToken(token);
         this.loginService.updateLogedIn(true);
         this.toastr.success('Login realizado con éxito');
+        setTimeout(() => {
+          this.router.navigate(['/']);
+        }, 500);
       },
       error: () => {
         this.toastr.warning('Credenciales incorrectas');

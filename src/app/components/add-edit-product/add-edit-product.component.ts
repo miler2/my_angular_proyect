@@ -36,7 +36,7 @@ export class AddEditProductComponent implements OnInit{
     })
 
     this.loading = true;
-
+    
     /* Esta línea de abajo me genera una anomalía en la página. No tengo claro por qué, 
     pero creo que es porque otro componente ya está suscrito a ésto o algo. */
     // this.loginService.isUserLogedIn();  // Compruebo si está iniciado en sesión, y cambio la variable correspondientemente
@@ -45,6 +45,7 @@ export class AddEditProductComponent implements OnInit{
         this.logged_in = data;  // La variable guardada antes la almacenamos localmente
       }
     });
+    
     this.loading = false;
 
     // aRouter.snapshot.paramMap.get('id'); esto captura la id del producto dado en la url de la página (para saber si estamos editando un producto, o añadiendo uno nuevo)

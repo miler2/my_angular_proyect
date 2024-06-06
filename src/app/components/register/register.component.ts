@@ -29,7 +29,14 @@ export class RegisterComponent {
       repetir_contrasena: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(5)]],
     });
 
-    this.loginService.isUserLogedIn();  // Compruebo si está iniciado en sesión, y cambio la variable correspondientemente
+    this.loading = true;
+
+    if(this.loginService.getToken()){
+      this.loginService.isUserLogedIn();
+    } else {
+      this.loginService.updateLogedIn(false);
+    }
+    
     this.loginService.data$.subscribe({
       next: (data) => {
         if(data == true){
@@ -37,6 +44,8 @@ export class RegisterComponent {
         }
       }
     });
+
+    this.loading = false;
   }
 
   addUser(){
@@ -46,18 +55,17 @@ export class RegisterComponent {
       contrasena: this.form.value.contrasena
     }
     
-    if (user.contrasena == this.form.value.repetir_contrasena) {
-      try {
-
-        this.loading = true;
-        this.apiService.addUser(user);
-        this.toastr.success(`Se ha registrado correctamente`);
-        this.router.navigate(['/']);
-
-      }catch(error){
-        // console.log(error); // Debugging
-        this.toastr.error(`No se ha podido añadir el usuario correctamente`, `Error`);
-      }
+    if (user.contrasena === this.form.value.repetir_contrasena) {
+      this.loading = true;
+      this.apiService.addUser(user).subscribe({
+        next: () => {
+          this.toastr.success(`Se ha registrado correctamente`);
+          this.router.navigate(['/login']);
+        },
+        error: () => {
+          this.toastr.error(`No se ha podido añadir el usuario`, `Error`);
+        }
+      });
     } else {
       this.toastr.error(`Las contraseñas tienen que coincidir`);
     }
