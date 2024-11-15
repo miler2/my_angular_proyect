@@ -4,7 +4,7 @@
 
 In order to use angular, we will need node.js, npm and angular cli. First we will need to install node.js, and we will select npm in the installation:
 
-![nodejs_installation_options](photos_readme/nodejs_installation.png)
+![nodejs_installation_options](README_images/nodejs_installation.png)
 
 When it is installed, we will install angular cli with the following command:
 
